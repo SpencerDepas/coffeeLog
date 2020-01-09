@@ -16,7 +16,7 @@ class MainViewModel : ViewModel() {
 
 
     init {
-        Log.d("","")
+        Log.d("","") //
         makeRequest()
     }
 
