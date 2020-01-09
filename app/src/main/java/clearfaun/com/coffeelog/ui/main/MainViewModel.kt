@@ -11,12 +11,12 @@ import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
 class MainViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
-    var BASE_URL = "https://rickandmortyapi.com/graphql/"
 
+    val BASE_URL = "https://rickandmortyapi.com/graphql/"
+    var data: (MutableList<FeedResultsQuery.Result>)? = null
 
     init {
-        Log.d("","") //
+        Log.d("", "") //
         makeRequest()
     }
 
@@ -38,23 +38,16 @@ class MainViewModel : ViewModel() {
         apolloClient.query(FeedResultsQuery.builder().build())
             .enqueue(object : ApolloCall.Callback<FeedResultsQuery.Data>() {
                 override fun onFailure(e: ApolloException) {
-                    // error
-                    Log.d("","")
+                    Log.d("", "error")
                 }
 
                 override fun onResponse(response: Response<FeedResultsQuery.Data>) {
                     if (response.data() != null) {
-
-                        listOf(response.data())[0]
-
-                      //  Log.d("","Name : " + response?.data()?.characters()?.results()[0]?.name())
-                        Log.d("","Name : " + response.data()?.characters()?.results()?.get(0)?.name())
-
-
+                        data = response.data()?.characters()?.results()
                     }
                 }
             })
-
     }
+
 
 }
