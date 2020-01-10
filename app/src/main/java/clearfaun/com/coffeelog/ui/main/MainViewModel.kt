@@ -2,6 +2,8 @@ package clearfaun.com.coffeelog.ui.main
 
 import FeedResultsQuery
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
@@ -15,9 +17,18 @@ class MainViewModel : ViewModel() {
     val BASE_URL = "https://rickandmortyapi.com/graphql/"
     var data: (MutableList<FeedResultsQuery.Result>)? = null
 
+    private val _word = MutableLiveData<String>()
+    val word: LiveData<String>
+        get() = _word
+
     init {
         Log.d("", "") //
         makeRequest()
+        _word.value = "silly"
+
+
+        _word.value = "COCK"
+
     }
 
 
@@ -44,6 +55,7 @@ class MainViewModel : ViewModel() {
                 override fun onResponse(response: Response<FeedResultsQuery.Data>) {
                     if (response.data() != null) {
                         data = response.data()?.characters()?.results()
+                        _word.postValue(response.data()?.characters()?.results()?.get(0)?.name())
                     }
                 }
             })
