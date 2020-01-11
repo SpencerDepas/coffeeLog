@@ -40,7 +40,7 @@ class MainViewModel() : ViewModel(), RickAndMortyCallback {
         _word.postValue(data.get(0).name)
         _characters.postValue(data)
 
-        callback?.onResponse(data)
+      //  callback?.onResponse(data)
     }
 
 }
