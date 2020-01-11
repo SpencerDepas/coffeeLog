@@ -26,7 +26,6 @@ class MainViewModel() : ViewModel(), RickAndMortyCallback {
 
     init {
         getCharacterData()
-        //_word.value = "silly"
     }
 
     private fun getCharacterData() {
@@ -39,8 +38,6 @@ class MainViewModel() : ViewModel(), RickAndMortyCallback {
     override fun onResponse(data: ArrayList<Character>) {
         _word.postValue(data.get(0).name)
         _characters.postValue(data)
-
-      //  callback?.onResponse(data)
     }
 
 }
