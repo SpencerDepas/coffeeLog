@@ -18,14 +18,13 @@ import clearfaun.com.coffeelog.model.Character
 
 class MainFragment : Fragment(), DataCallback {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
 
     private lateinit var binding: MainFragmentBinding
 
+    companion object {
+        fun newInstance() = MainFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,35 +45,8 @@ class MainFragment : Fragment(), DataCallback {
         binding.lifecycleOwner = this
 
 
-        println("Unconfined : I'm working in thread ${Thread.currentThread().name}")
-
-
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        test()
-
-    }
-
-
-    fun test() {
-
-//
-//        val data = arrayListOf(
-//            Character("Raising Arizona", "","","",""),
-//            Character("Raisijjkkjjkng Arizona", "","","",""),
-//            Character("Raisinlkhlkjljzona", "","","",""),
-//            Character("Raisihkjhhhhha", "","","",""),
-//            Character("Raisyyyyyyyy777na", "","","",""),
-//            Character("Rai987987987zona", "","","","")
-//        )
-
-
-    }
-
 
     override fun onResponse(data: ArrayList<Character>?) {
         Log.d("", "")
@@ -82,20 +54,17 @@ class MainFragment : Fragment(), DataCallback {
     }
 
     fun initRv(data: ArrayList<Character>?) {
-
-
         println("Unconfined      : I'm working in thread ${Thread.currentThread().name}")
-
         activity?.runOnUiThread(Runnable {
             // Stuff that updates the UI
             println("Unconfined      : I'm working in thread ${Thread.currentThread().name}")
 
-            if(data != null){
+            if (data != null) {
                 val mLayoutManager = LinearLayoutManager(activity)
                 mLayoutManager.orientation = LinearLayoutManager.VERTICAL
                 binding.usersList.layoutManager = mLayoutManager
                 binding.usersList.adapter = CharacterAdapter(data)
-            }else{
+            } else {
                 val toast = Toast.makeText(
                     activity,
                     "No Data",
@@ -103,25 +72,7 @@ class MainFragment : Fragment(), DataCallback {
                 )
                 toast.show()
             }
-
         })
-
-//        println("Unconfined      : I'm working in thread ${Thread.currentThread().name}")
-//
-//
-//        println("Unconfined      : I'm working in thread ${Thread.currentThread().name}")
-//
-//        GlobalScope.launch{Main
-//            if(data != null){
-//                println("Unconfined      : I'm working in thread ${Thread.currentThread().name}")
-//
-//
-//            }
-//
-//        }
-
-
-
     }
 
 }

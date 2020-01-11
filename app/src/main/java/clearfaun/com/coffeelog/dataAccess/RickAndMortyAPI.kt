@@ -6,44 +6,30 @@ import clearfaun.com.coffeelog.model.Character
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
-import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 class RickAndMortyAPI {
 
     val BASE_URL = "https://rickandmortyapi.com/graphql/"
-
     lateinit var callback: RickAndMortyCallback
-    val uiScope = CoroutineScope(Dispatchers.Main)
-    val bgDispatcher: CoroutineDispatcher = Dispatchers.IO
 
     fun getCharacters(_callback: RickAndMortyCallback) {
-
-        Log.d("", "")
         callback = _callback
 
-
-
-
-
-
-       // loadData()
-
-        loadDataTwo()
-
-
+        loadCharacterData()
     }
 
 
-    fun loadDataTwo(){
+    fun loadCharacterData() {
 
-        GlobalScope.launch{Dispatchers.Main
+        GlobalScope.launch {
+            Dispatchers.Main
 
-            try{
+            try {
 
                 val httpClient = OkHttpClient.Builder()
                     .connectTimeout(30, TimeUnit.SECONDS)
@@ -66,10 +52,9 @@ class RickAndMortyAPI {
                 callback.onResponse(convertToCharacter(repositories))
 
 
-
             } catch (e: ApolloException) {
                 // you will end up here if .await() throws, most likely due to a transport or parsing error
-              Log.d("","")
+                Log.d("", "")
 
                 val dataa = arrayListOf(
                     Character("Raising Arizona", "", "", "", ""),
@@ -79,44 +64,20 @@ class RickAndMortyAPI {
                     Character("Raisyyyyyyyy777na", "", "", "", ""),
                     Character("Rai987987987zona", "", "", "", "")
                 )
-
-
-
                 callback.onResponse(dataa)
-
 
 
             } catch (e: NullPointerException) {
                 // you will end up here if repositories!! throws above. This will happen if your server sends a response
                 // with missing fields or errors
-                Log.d("","")
+                Log.d("", "")
 
             } finally {
                 // in all cases, hide the progress bar
-                Log.d("","")
+                Log.d("", "")
             }
         }
     }
-
-
-
-//        apolloClient.query(FeedResultsQuery.builder().build())
-//            .enqueue(object : ApolloCall.Callback<FeedResultsQuery.Data>() {
-//                override fun onFailure(e: ApolloException) {
-//                    Log.d("", "error")
-//
-//                    callback.onFailure(e)
-//
-//
-//                }
-//
-//                override fun onResponse(response: Response<FeedResultsQuery.Data>) {
-//                    if (response.data() != null) {
-//                        //data = response.data()?.characters()?.results()
-//                        callback.onResponse(response)
-//                    }
-//                }
-//            })
 }
 
 fun convertToCharacter(characters: List<FeedResultsQuery.Result>?): ArrayList<Character> {
