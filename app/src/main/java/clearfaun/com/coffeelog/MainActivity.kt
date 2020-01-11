@@ -2,10 +2,11 @@ package clearfaun.com.coffeelog
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import clearfaun.com.coffeelog.ui.main.MainFragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
-
 
         var online = isOnline(this)
         Log.d("","online $online")

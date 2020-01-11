@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="clearfaun.com.coffeelog.model.Character" />
@@ -11,18 +12,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_height="30dp"
         android:layout_marginTop="5dp"
+        android:background="@color/cardview_dark_background"
+        android:layout_marginBottom="5dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/promotion_item_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
+            android:textColor="@color/cardview_light_background"
             android:layout_margin="3dp"
-            android:text="@{item.name}"
-            tools:text="30% on beer" />
+            android:text="@{item.name}" />
 
     </LinearLayout>
 </layout>

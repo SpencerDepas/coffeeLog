@@ -1,5 +1,6 @@
 package clearfaun.com.coffeelog.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,8 +8,11 @@ import clearfaun.com.coffeelog.databinding.CharacterItemBinding
 import clearfaun.com.coffeelog.model.Character
 
 class CharacterAdapter(var characters: ArrayList<Character>) :
-
     RecyclerView.Adapter<CharacterAdapter.UserViewHolder>() {
+
+    init{
+        Log.d("","")
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,7 +36,7 @@ class CharacterAdapter(var characters: ArrayList<Character>) :
     class UserViewHolder(val binding: CharacterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
-            //binding.item = character
+            binding.item = character
             binding.executePendingBindings()
         }
     }
