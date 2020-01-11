@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit
 
 class RickAndMortyAPI {
 
-    var data: ArrayList<Character>? = null
-
     val BASE_URL = "https://rickandmortyapi.com/graphql/"
 
     lateinit var callback: RickAndMortyCallback
@@ -43,10 +41,7 @@ class RickAndMortyAPI {
 
     fun loadDataTwo(){
 
-
-
-
-        GlobalScope.launch{IO
+        GlobalScope.launch{Dispatchers.Main
 
             try{
 
@@ -67,9 +62,6 @@ class RickAndMortyAPI {
 
                 val response = deferred.await()
                 val repositories = response.data()?.characters()?.results() ?: emptyList()
-
-
-                data = convertToCharacter(repositories);
 
                 callback.onResponse(convertToCharacter(repositories))
 
@@ -103,86 +95,9 @@ class RickAndMortyAPI {
                 // in all cases, hide the progress bar
                 Log.d("","")
             }
-
-
-
         }
-
-
-
-
     }
 
-
-
-    fun loadData() = uiScope.launch {
-        //view.showLoading() // ui thread
-        val task = async(bgDispatcher) {
-            // background thread
-
-
-            try {
-
-                val httpClient = OkHttpClient.Builder()
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .build()
-
-                val apolloClient = ApolloClient.builder()
-                    .serverUrl(BASE_URL)
-                    .okHttpClient(httpClient)
-                    .build()
-
-
-                val deferred =
-                    apolloClient.query(FeedResultsQuery.builder().build()).toDeferred()
-
-                val response = deferred.await()
-                val repositories = response.data()?.characters()?.results() ?: emptyList()
-                //  withContext(Main) {
-
-                data = convertToCharacter(repositories);
-                //callback.onResponse(convertToCharacter(repositories))
-
-
-                //  }
-
-            } catch (e: ApolloException) {
-                // you will end up here if .await() throws, most likely due to a transport or parsing error
-                Log.d("", "")
-            } catch (e: NullPointerException) {
-
-                Log.d("", "")
-            }  finally {
-                // in all cases, hide the progress bar
-                Log.d("", "")
-                println("Unconfined      : I'm working in thread ${Thread.currentThread().name}")
-
-                val dataa = arrayListOf(
-                    Character("Raising Arizona", "", "", "", ""),
-                    Character("Raisijjkkjjkng Arizona", "", "", "", ""),
-                    Character("Raisinlkhlkjljzona", "", "", "", ""),
-                    Character("Raisihkjhhhhha", "", "", "", ""),
-                    Character("Raisyyyyyyyy777na", "", "", "", ""),
-                    Character("Rai987987987zona", "", "", "", "")
-                )
-
-                data = dataa
-                //withContext(Main) {
-                //callback.onResponse(data)
-                //}
-
-
-            }
-
-        }
-        val result = task.await()
-
-        // view.showData(result) // ui thread
-        var test = convertToCharacter(emptyList())
-        callback.onResponse(data ?: test)
-    }
 
 
 //        apolloClient.query(FeedResultsQuery.builder().build())

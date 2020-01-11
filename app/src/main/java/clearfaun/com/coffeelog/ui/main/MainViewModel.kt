@@ -4,9 +4,11 @@ import FeedResultsQuery
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import clearfaun.com.coffeelog.dataAccess.RickAndMortyAPI
 import clearfaun.com.coffeelog.dataAccess.RickAndMortyCallback
 import clearfaun.com.coffeelog.model.Character
+import kotlinx.coroutines.launch
 
 class MainViewModel() : ViewModel(), RickAndMortyCallback {
 
@@ -26,14 +28,19 @@ class MainViewModel() : ViewModel(), RickAndMortyCallback {
 
     init {
 
+
+
         makeRequest()
         _word.value = "silly"
     }
 
     fun makeRequest() {
 
-        val api = RickAndMortyAPI()
-        api.getCharacters(this)
+        
+            val api = RickAndMortyAPI()
+            api.getCharacters(this)
+
+
     }
 
 
@@ -41,7 +48,7 @@ class MainViewModel() : ViewModel(), RickAndMortyCallback {
         _word.postValue(data.get(0).name)
         _characters.postValue(data)
 
-        callback?.onResponse(_characters.value)
+        callback?.onResponse(data)
     }
 
 
