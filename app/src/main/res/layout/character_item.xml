@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,21 +10,39 @@
 
     </data>
 
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/cardview_dark_background"
-        android:layout_marginBottom="5dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/promotion_item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:textColor="@color/cardview_light_background"
-            android:layout_margin="3dp"
-            android:text="@{item.name}" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/round_outline"
+            android:scaleType="centerCrop"
+            android:src="@{item.image}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setClipToOutline="@{true}" />
+
+        <!--                <TextView-->
+        <!--                    android:id="@+id/promotion_item_title"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="25dp"-->
+        <!--                    android:textColor="@color/cardview_light_background"-->
+        <!--                    android:layout_margin="3dp"-->
+        <!--                    android:text="@{item.name}" />-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
