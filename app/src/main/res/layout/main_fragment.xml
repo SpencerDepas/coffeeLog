@@ -30,17 +30,5 @@
             bind:characters="@{viewModel.characters}"
             bind:layout_vertical="@{true}" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/score_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            android:fontFamily="sans-serif"-->
-<!--            android:text="@{viewModel.word}"-->
-<!--            android:textSize="14sp"-->
-<!--            android:textStyle="normal"-->
-<!--            tools:text="Score: 2" />-->
-
     </RelativeLayout>
 </layout>
